@@ -10,10 +10,7 @@
         </a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="#" class="nav-link">Olá, Fulano(a)</a>
       </li>
     </ul>
 
@@ -36,23 +33,6 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
-                </a>
-              </li>
-            </ul>
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -62,16 +42,16 @@
 
   <!-- end of sidebar -->
 
-  <div class="content-wrapper" style="min-height: 388px;">
+  <div class="content-wrapper" style="min-height: 390px;">
 
 
     <section class="content">
       <div class="container-fluid">
 
-        <div class="row">
-          <div class="col-lg-3 col-6">
+        <div class="row mt-3">
+          <div class="col">
 
-            <div class="small-box bg-info">
+            <div class="small-box bg-info" @click="showModalSaldo = true">
               <div class="inner">
                 <h3>150</h3>
                 <p>Minha Carteira</p>
@@ -79,99 +59,125 @@
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer"> Enviar Saldo <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer"> Adicionar Saldo<i class="fas fa-arrow-circle-right"></i></a>
             </div>
+
           </div>
+          
+          
 
-          <div class="col-lg-3 col-6">
+      
 
-            <div class="small-box bg-success">
+          <div class="col">
+
+            <div class="small-box bg-success" @click="showModalTransaction = true">
               <div class="inner">
                 <h3>53<sup style="font-size: 20px">%</sup></h3>
-                <p>Bounce Rate</p>
+                <p>Transferir</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-6">
-
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-6">
-
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-                <p>Unique Visitors</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Transferir<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
         </div>
 
+        <div class="row mt-2">
+          <div class="col">
 
-        <div class="row">
+            <div class="card mt-3">
+            <div class="card-header">
+              Extrato
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Data/Hora</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>01/04/2022</td>
+                    <td>Transferência para Fulano</td>
+                    <td>R$ 50,00</td>
+                  </tr>
+                  <tr>
+                    <td>01/04/2022</td>
+                    <td>Transferência para Fulano</td>
+                    <td>R$ 50,00</td>
+                  </tr>
+                  <tr>
+                    <td>01/04/2022</td>
+                    <td>Transferência para Fulano</td>
+                    <td>R$ 50,00</td>
+                  </tr>
+                  <!-- Adicione mais linhas para exibir outras transações -->
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-          <section class="col-lg-7 connectedSortable ui-sortable">
+          </div>
 
-            
+        </div>
 
-
-            
-
-          </section>
-
-
+        <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-8">
           
 
-      </div>
+          
+        </div>
 
+        
+      </div>
+    </div>
+    
     </div>
   </section>
 
+  
+
 </div>
+
+<ModalBalanceComponent v-if="showModalSaldo" @closeModalBalance="showModalSaldo = false" />
+<ModalTransactionComponent v-if="showModalTransaction" @close="showModalTransaction = false" />
 <!-- end of main dashboard -->
 
-<!-- footer -->
-<footer class="main-footer">
-</footer>
+<!-- end of footer -->
+</template>
 
+<style>
 
+.small-box {
+  cursor: pointer
+}
 
-<!-- end of footer --></template>
+</style>
   
   
 <script>
-
+import ModalBalanceComponent from '@/components/Modals/ModalBalanceComponent.vue';
+import ModalTransactionComponent from '@/components/Modals/ModalTransactionComponent.vue';
 
 export default {
-  name: 'DashboardComponent',
-  data() {
-    return {
-      email: '',
-      password: ''
-    }
-  },
-
-}
+    components: {
+      ModalBalanceComponent,
+      ModalTransactionComponent
+    },
+    data() {
+        return {
+          showModalSaldo: false,
+          showModalTransaction: false,
+        };
+    },
+    
+};
 </script>
   
   

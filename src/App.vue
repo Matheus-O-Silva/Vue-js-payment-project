@@ -1,9 +1,4 @@
 <template>
-  <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper">
-         
-    </div>
-  </body>
   <router-view/>
 </template>
 
