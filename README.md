@@ -1,4 +1,4 @@
-# celerus
+# Payment Project
 
 ## Project setup
 ```

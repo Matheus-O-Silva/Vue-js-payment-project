@@ -10,7 +10,7 @@
             <p>Saldo Atual: R$ X</p>
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">R$</span>
-              <input type="number" class="form-control" v-mask="'###.###.###.##'" placeholder="Digite o valor" v-model="valorAdicionar" aria-label="Valor a adicionar" aria-describedby="basic-addon1">
+              <input type="number" class="form-control" placeholder="Digite o valor" v-model="valorAdicionar" aria-label="Valor a adicionar" aria-describedby="basic-addon1">
             </div>
           </div>
           <div class="modal-footer">
@@ -24,10 +24,7 @@
 
 
 <script>
-
-
 export default {
-  
   name: 'ModalBalanceComponent',
   props: {
     title: String,
