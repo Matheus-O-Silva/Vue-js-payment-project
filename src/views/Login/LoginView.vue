@@ -44,7 +44,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      device_name: 'test'
     }
   },
   methods: {
@@ -52,20 +53,21 @@ export default {
       console.log(this.email)
       console.log(this.password)
       
-      axios.post('http://localhost:8989/login', {
+      axios.post('http://localhost:8989/auth', {
         email: this.email,
-        password: this.password
+        password: this.password,
+        device_name: this.device_name
       })
         .then(response => {
-          const token = response.data.token
+          const token = response.data[0]
           localStorage.setItem('token', token)
-          // redireciona para a página de perfil
-          this.$router.push('/profile')
+          // redirect to the dashboard
+          this.$router.push('/dashboard')
         })
         .catch(error => {
           // exibe uma mensagem de erro para o usuário
           console.log(error)
-          this.$router.push('/dashboard')
+          //this.$router.push('/dashboard')
         })
 
         
