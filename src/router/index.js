@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/Login/LoginView.vue'
 import DashboardView from '../views/Dashboard/DashboardView.vue'
+import RegisterView from '../views/Register/RegisterView.vue'
+import authGuard from '../utils/authGuard'
 
 const routes = [
   {
@@ -9,12 +11,15 @@ const routes = [
     component: LoginView
   },
   {
+    path: '/registrar',
+    name: 'register',
+    component: RegisterView
+  },
+  {
     path: '/dashboard',
     name: 'dashboard',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: DashboardView
+    component: DashboardView,
+    beforeEnter: authGuard
   }
 ]
 

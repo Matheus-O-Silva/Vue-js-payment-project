@@ -6,14 +6,19 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button">
           <i class="fas fa-bars"></i>
-
         </a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Olá, Fulano(a)</a>
+        <a href="#" class="nav-link">Bem-vindo(a), {{ user }}</a>
       </li>
     </ul>
 
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a  href="#" class="nav-link" @click="logout">Sair</a>
+      </li>
+    </ul>
   </nav>
   <!-- /.navbar -->
 
@@ -164,6 +169,7 @@
 <script>
 import ModalBalanceComponent from '@/components/Modals/ModalBalanceComponent.vue';
 import ModalTransactionComponent from '@/components/Modals/ModalTransactionComponent.vue';
+import axios from 'axios'
 
 export default {
     components: {
@@ -174,7 +180,35 @@ export default {
         return {
           showModalSaldo: false,
           showModalTransaction: false,
+          user: null,
         };
+    },
+    mounted() {
+      this.loadUser();
+    },
+    methods: {
+      loadUser() {
+        // Faça uma solicitação para o endpoint do back-end para obter os dados do usuário autenticado
+        axios.get('http://localhost:8989/user',{
+            headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }
+        })
+        .then(response => {
+          // Defina os dados do usuário na propriedade "user"
+          this.user = response.data.name;
+
+          console.log(this.user)
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      },
+      logout() {
+        localStorage.removeItem('token');
+        this.$router.push('/');
+        //console.log('logout')
+      }
     },
     
 };

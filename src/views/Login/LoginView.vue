@@ -29,6 +29,9 @@
                 <button type="submit" @click="login" class="btn btn-primary btn-block">Entrar</button>
               </div>
             </div>
+            <p class="mb-0 mt-3">
+              <router-link to="/registrar" class="text-center">Não possui conta? Registre-se</router-link>
+            </p>
         </div>
       </div>
     </div>
