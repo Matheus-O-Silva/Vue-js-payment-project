@@ -10,6 +10,14 @@
         </div>
         <div class="card">
           <div class="card-body login-card-body">
+
+            <div class="form-group">
+              <label for="documentType">Cargo:</label>
+              <select class="form-control" v-model="role">
+                <option value="Lojista">Lojista</option>
+                <option value="Comum">Comum</option>
+              </select>
+            </div>
             
             <div class="form-group">
               <label for="documentType">Tipo de documento:</label>
@@ -64,6 +72,7 @@ export default {
       documentType: 'CPF',
       documentNumber: '',
       name: '',
+      role: '',
       email: '',
       password: '',
       device_name: 'test'
@@ -75,6 +84,7 @@ export default {
         name: this.name,
         email: this.email,
         password: this.password,
+        role_id : this.role,
         documentType: this.documentType,
         documentNumber: this.documentNumber,
         device_name: this.device_name
@@ -89,6 +99,7 @@ export default {
         this.name = '',
         this.email = '',
         this.password = '',
+        this.role = '',
         this.documentNumber = '',
         this.documentType = 'CPF'
       })

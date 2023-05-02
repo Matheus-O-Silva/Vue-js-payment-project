@@ -4,10 +4,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Minha Carteira</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <p>Saldo Atual: R$ X</p>
+            <p>Adicionar Saldo</p>
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">R$</span>
               <input type="number" class="form-control" placeholder="Digite o valor" v-model="valorAdicionar" aria-label="Valor a adicionar" aria-describedby="basic-addon1">

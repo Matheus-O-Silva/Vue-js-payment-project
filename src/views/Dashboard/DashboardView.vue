@@ -9,7 +9,7 @@
         </a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Bem-vindo(a), {{ user }}</a>
+        <a href="#" class="nav-link">Bem-vindo(a), {{ user }} / Perfil: {{ role }} </a>
       </li>
     </ul>
 
@@ -58,13 +58,13 @@
 
             <div class="small-box bg-info" @click="showModalSaldo = true">
               <div class="inner">
-                <h3>150</h3>
-                <p>Minha Carteira</p>
+                <h3>Saldo Atual:150</h3>
+                <p>ícone Minha Carteira</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer"> Adicionar Saldo<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Clique aqui para Adicionar Saldo<i class="fas fa-arrow-circle-right"></i></a>
             </div>
 
           </div>
@@ -73,17 +73,17 @@
 
       
 
-          <div class="col">
+          <div v-if="role !== 'Lojista'" class="col">
 
             <div class="small-box bg-success" @click="showModalTransaction = true">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-                <p>Transferir</p>
+                <h3><sup style="font-size: 20px">Transferir</sup></h3>
+                <p>ícone de transferir</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">Transferir<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Clique aqui para Transferir<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
@@ -181,6 +181,7 @@ export default {
           showModalSaldo: false,
           showModalTransaction: false,
           user: null,
+          role: null,
         };
     },
     mounted() {
@@ -197,8 +198,8 @@ export default {
         .then(response => {
           // Defina os dados do usuário na propriedade "user"
           this.user = response.data.name;
+          this.role = response.data.role_id == 1 ? 'Lojista' : 'Cliente';
 
-          console.log(this.user)
         })
         .catch(error => {
           console.log(error);
