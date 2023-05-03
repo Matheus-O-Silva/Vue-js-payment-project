@@ -54,7 +54,7 @@
       <div class="container-fluid">
         <div class="row mt-3">
           <div class="col">
-            <div class="small-box bg-info" @click="showModalSaldo = true">
+            <div class="small-box bg-info" v-if="role !== 'Lojista'" @click="showModalSaldo = true">
               <div class="inner">
                 <h3><sup style="font-size: 20px">Saldo Atual: {{ userBalance }}</sup></h3>
                 <p>ícone Minha Carteira</p>
@@ -78,39 +78,53 @@
             </div>
           </div>
         </div>
+        <div class="row mt-3" v-if="role == 'Lojista'">
+          <div class="col">
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><sup style="font-size: 20px">Saldo Atual: {{ userBalance }}</sup></h3>
+                <p>ícone Minha Carteira</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+            </div>
+          </div>
+          <div v-if="role !== 'Lojista'" class="col">
+            <div class="small-box bg-success" @click="showModalTransaction = true">
+              <div class="inner">
+                <h3><sup style="font-size: 20px">Transferir</sup></h3>
+                <p>ícone de transferir</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <div class="row mt-2">
+        <div class="row mt-2" v-if="role !== 'Lojista'">
           <div class="col">
 
             <div class="card mt-3">
             <div class="card-header">
-              <strong>Extrato</strong>
+              <strong>Transações</strong>
             </div>
             <div class="card-body">
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">Data/Hora</th>
+                    <th scope="col">Data e Hora</th>
                     <th scope="col">Descrição</th>
                     <th scope="col">Valor</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>01/04/2022</td>
-                    <td>Transferência para Fulano</td>
-                    <td>R$ 50,00</td>
-                  </tr>
-                  <tr>
-                    <td>01/04/2022</td>
-                    <td>Transferência para Fulano</td>
-                    <td>R$ 50,00</td>
-                  </tr>
-                  <tr>
-                    <td>01/04/2022</td>
-                    <td>Transferência para Fulano</td>
-                    <td>R$ 50,00</td>
-                  </tr>
+                  <tr v-for="(transaction, index) in transactions" :key="index">
+                  <td>{{ transaction.created_at_formatted }}</td>
+                  <td>{{ transaction.action }}</td>
+                  <td>R${{ transaction.transferred_amount }}</td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -172,11 +186,14 @@ export default {
           user: null,
           role: null,
           userBalance: null,
+          transactions: null,
+          receivings: null
         };
     },
     mounted() {
       this.loadUser();
       this.loadBalance();
+      this.loadTransactions();
     },
     methods: {
       loadUser() {
@@ -212,6 +229,22 @@ export default {
         .then(response => {
           // Defina os dados do usuário na propriedade "user"
           this.userBalance = response.data;
+
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      },
+      loadTransactions() {
+        // Faça uma solicitação para o endpoint do back-end para obter os dados do usuário autenticado
+        axios.get('http://localhost:8989/get-transactions',{
+            headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }
+        })
+        .then(response => {
+          // Defina os dados do usuário na propriedade "user"
+          this.transactions = response.data;
 
         })
         .catch(error => {
