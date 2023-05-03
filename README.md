@@ -13,7 +13,7 @@
 
   
 
-git clone  https://github.com/Matheus-O-Silva/Laravel-payment-project.git
+git clone  https://github.com/Matheus-O-Silva/Vue-js-payment-project.git
 
 ```
 
