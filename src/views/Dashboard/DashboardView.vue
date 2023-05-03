@@ -53,8 +53,8 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row mt-3">
-          <div class="col">
-            <div class="small-box bg-warning" v-if="role !== 'Lojista'" @click="showModalBalanceUser = true">
+          <div class="col-12">
+            <div class="small-box bg-warning" @click="showModalBalanceUser = true">
               <div class="inner">
                 <h3 class="mb-1"><sup style="font-size: 20px">Visualizar Saldo</sup></h3>
                 <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-wallet" viewBox="0 0 16 16">
@@ -102,30 +102,6 @@
             </div>
           </div>
         </div>
-        <div class="row mt-3" v-if="role == 'Lojista'">
-          <div class="col">
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3><sup style="font-size: 20px">Saldo Atual: {{ userBalance }}</sup></h3>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-            </div>
-          </div>
-          <div v-if="role !== 'Lojista'" class="col">
-            <div class="small-box bg-success" @click="showModalTransaction = true">
-              <div class="inner">
-                <h3><sup style="font-size: 20px">Transferir</sup></h3>
-               
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="row mt-2" v-if="role !== 'Lojista'">
           <div class="col">
 
