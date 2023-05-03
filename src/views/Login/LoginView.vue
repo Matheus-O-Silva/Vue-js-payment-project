@@ -68,9 +68,12 @@ export default {
           this.$router.push('/dashboard')
         })
         .catch(error => {
-          // exibe uma mensagem de erro para o usuário
           console.log(error)
-          //this.$router.push('/dashboard')
+          this.$swal({
+            title: 'Erro!',
+            text: 'Usuário e ou Senha inválidos',
+            icon: 'error'
+          })
         })
 
         
