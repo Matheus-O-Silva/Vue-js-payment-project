@@ -8,14 +8,14 @@
           <div class="modal-body">
             <div class="modal-body">
           <form>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Digite o número do documento do recebedor:</label>
+              <input v-model="receivingUserDocumentNumber" type="text" class="form-control" id="recipient-name">
+            </div>
             <p>Valor da Transferência</p>
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">R$</span>
               <input type="number" v-model="amount" class="form-control" placeholder="Digite o valor" aria-label="Valor a adicionar" aria-describedby="basic-addon1">
-            </div>
-            <div class="mb-3">
-              <label for="recipient-name" class="col-form-label">Digite o número do documento do recebedor:</label>
-              <input v-model="receivingUserDocumentNumber" type="text" class="form-control" id="recipient-name">
             </div>
           </form>
         </div>
@@ -39,10 +39,10 @@
       title: String,
     },
     data() {
-    return {
-      amount: '',
-      receivingUserDocumentNumber: '',
-    }
+      return {
+        amount: '',
+        receivingUserDocumentNumber: '',
+      }
   },
   methods: {
     sendMoney(){

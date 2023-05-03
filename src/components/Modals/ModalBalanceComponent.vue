@@ -28,6 +28,8 @@
 
 <script>
 import axios from 'axios'
+import mitt from 'mitt';
+const emitter = mitt();
 
 export default {
   name: 'ModalBalanceComponent',
@@ -57,6 +59,8 @@ export default {
         })
         // Limpa os dados do formulário
         this.amount = ''
+
+        this.$router.push('/dashboard');
       })
       .catch(error => {
         // Exibe uma mensagem de erro para o usuário
@@ -68,8 +72,11 @@ export default {
         })
       })
 
-      // Emitir o evento de saldo adicionado
-      this.$emit('balace-add')
+      emitter.emit('balance-updated')
+
+     // Emitir o evento de saldo adicionado
+     this.$emit('balace-add')
+     this.$emit('refresh-table-transactions')
     }
   }
 };
