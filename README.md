@@ -38,26 +38,6 @@ docker-compose up -d
 
 ```
 
-  
-
-### Acesse o container app
-
-```
-
-docker-compose exec app sh
-
-```
-
-  
-
-### Execute o comando para compilar para produção
-
-```
-
-yarn build
-
-```
-
 ### Acesse o projeto
 
 [http://localhost:8080](http://localhost:8989)
