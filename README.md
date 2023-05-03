@@ -1,24 +1,63 @@
-# Payment Project
+
+# Payment Project Vue JS
+
+  
 
 ## Project setup
-```
-yarn install
+
+### Clone o repositório
+
+  
+
+```sh
+
+  
+
+git clone  https://github.com/Matheus-O-Silva/Laravel-payment-project.git
+
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
+### Clone o repositório
+  
+
+```sh
+
+  
+
+cd  Vue-js-payment-project
+
+  
+
 ```
 
-### Compiles and minifies for production
+### Suba os containers do projeto
+
 ```
+
+docker-compose up -d
+
+```
+
+  
+
+### Acesse o container app
+
+```
+
+docker-compose exec app sh
+
+```
+
+  
+
+### Execute o comando para compilar para produção
+
+```
+
 yarn build
+
 ```
 
-### Lints and fixes files
-```
-yarn lint
-```
+### Acesse o projeto
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[http://localhost:8080](http://localhost:8989)
