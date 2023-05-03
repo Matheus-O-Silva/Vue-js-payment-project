@@ -52,13 +52,11 @@
 
     <section class="content">
       <div class="container-fluid">
-
         <div class="row mt-3">
           <div class="col">
-
             <div class="small-box bg-info" @click="showModalSaldo = true">
               <div class="inner">
-                <h3>Saldo Atual:150</h3>
+                <h3><sup style="font-size: 20px">Saldo Atual: {{ userBalance }}</sup></h3>
                 <p>ícone Minha Carteira</p>
               </div>
               <div class="icon">
@@ -66,15 +64,8 @@
               </div>
               <a href="#" class="small-box-footer">Clique aqui para Adicionar Saldo<i class="fas fa-arrow-circle-right"></i></a>
             </div>
-
           </div>
-          
-          
-
-      
-
           <div v-if="role !== 'Lojista'" class="col">
-
             <div class="small-box bg-success" @click="showModalTransaction = true">
               <div class="inner">
                 <h3><sup style="font-size: 20px">Transferir</sup></h3>
@@ -86,7 +77,6 @@
               <a href="#" class="small-box-footer">Clique aqui para Transferir<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-
         </div>
 
         <div class="row mt-2">
@@ -94,7 +84,7 @@
 
             <div class="card mt-3">
             <div class="card-header">
-              Extrato
+              <strong>Extrato</strong>
             </div>
             <div class="card-body">
               <table class="table">
@@ -121,7 +111,6 @@
                     <td>Transferência para Fulano</td>
                     <td>R$ 50,00</td>
                   </tr>
-                  <!-- Adicione mais linhas para exibir outras transações -->
                 </tbody>
               </table>
             </div>
@@ -150,8 +139,8 @@
 
 </div>
 
-<ModalBalanceComponent v-if="showModalSaldo" @closeModalBalance="showModalSaldo = false" />
-<ModalTransactionComponent v-if="showModalTransaction" @close="showModalTransaction = false" />
+<ModalBalanceComponent @balace-add="loadBalance" v-if="showModalSaldo" @closeModalBalance="showModalSaldo = false" />
+<ModalTransactionComponent @balace-add="loadBalance" v-if="showModalTransaction" @close="showModalTransaction = false" />
 <!-- end of main dashboard -->
 
 <!-- end of footer -->
@@ -182,13 +171,16 @@ export default {
           showModalTransaction: false,
           user: null,
           role: null,
+          userBalance: null,
         };
     },
     mounted() {
       this.loadUser();
+      this.loadBalance();
     },
     methods: {
       loadUser() {
+        console.log('loudou')
         // Faça uma solicitação para o endpoint do back-end para obter os dados do usuário autenticado
         axios.get('http://localhost:8989/user',{
             headers: {
@@ -209,8 +201,25 @@ export default {
         localStorage.removeItem('token');
         this.$router.push('/');
         //console.log('logout')
+      },
+      loadBalance() {
+        // Faça uma solicitação para o endpoint do back-end para obter os dados do usuário autenticado
+        axios.get('http://localhost:8989/get-amount',{
+            headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }
+        })
+        .then(response => {
+          // Defina os dados do usuário na propriedade "user"
+          this.userBalance = response.data;
+
+        })
+        .catch(error => {
+          console.log(error);
+        });
       }
-    },
+    }
+
     
 };
 </script>

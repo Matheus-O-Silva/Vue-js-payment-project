@@ -1,33 +1,77 @@
 <template>
   <div class="modal" tabindex="-1">
     <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Minha Carteira</h5>
-          </div>
-          <div class="modal-body">
-            <p>Adicionar Saldo</p>
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">R$</span>
-              <input type="number" class="form-control" placeholder="Digite o valor" v-model="valorAdicionar" aria-label="Valor a adicionar" aria-describedby="basic-addon1">
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="$emit('closeModalBalance')" data-bs-dismiss="modal">Fechar</button>
-            <button type="button" class="btn btn-primary" @click="adicionar">Adicionar</button>
-          </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><strong>Adicionar Saldo</strong></h5>
         </div>
+        <div class="modal-body">
+          <div class="modal-body">
+        <form>
+          <p>Adicionar Saldo</p>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">R$</span>
+            <input type="number" v-model="amount" class="form-control" placeholder="Digite o valor" aria-label="Valor a adicionar" aria-describedby="basic-addon1">
+          </div>
+        </form>
       </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary"  @click="$emit('closeModalBalance')" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary" @click="addBalance">Adicionar</button>
+          </div>
+      </div>
+    </div>
   </div>
 </template>
 
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'ModalBalanceComponent',
   props: {
     title: String,
   },
+  data() {
+    return {
+      amount: '',
+    }
+  },
+  methods: {
+    addBalance(){
+
+      axios.post('http://localhost:8989/add-balance', {
+        amount: this.amount,
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      .then(response => {
+        console.log(response)
+        this.$swal({
+          title: 'Saldo Adicionado com sucesso!',
+          icon: 'success'
+        })
+        // Limpa os dados do formulário
+        this.amount = ''
+      })
+      .catch(error => {
+        // Exibe uma mensagem de erro para o usuário
+        console.log(error)
+        this.$swal({
+          title: 'Erro!',
+          text: 'Não foi possível efetuar a transação, tente novamente em alguns instantes.',
+          icon: 'error'
+        })
+      })
+
+      // Emitir o evento de saldo adicionado
+      this.$emit('balace-add')
+    }
+  }
 };
 </script>
 
